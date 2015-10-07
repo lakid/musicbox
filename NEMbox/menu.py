@@ -72,7 +72,7 @@ shortcut = [
     ['p', 'Present/History  ', '当前/历史播放列表'],
     ["i", 'Music Info       ', '当前音乐信息'],
     ['Shift+p', 'Playing Mode     ', '播放模式切换'],
-    ['a', 'Add              ', '添加曲目到打碟'],
+    ['a', 'Add              ', 'Add tracks to DJing'],
     ['z', 'DJ list          ', '打碟列表'],
     ['s', 'Star             ', '添加到收藏'],
     ['c', 'Collection       ', '收藏列表'],
@@ -93,8 +93,8 @@ class Menu:
         sys.setdefaultencoding('UTF-8')
         self.config = Config()
         self.datatype = 'main'
-        self.title = '网易云音乐'
-        self.datalist = ['排行榜', '艺术家', '新碟上架', '精选歌单', '我的歌单', 'DJ节目', '每日推荐', '私人FM', '搜索', '帮助']
+        self.title = 'Netease cloud music'
+        self.datalist = ['Leaderboard', 'Artists', 'Newly Added albums', 'Featured Songs Playlist', 'My Song Playlists', 'DJ program', 'Daily Recommended', 'Private FM', 'Song Search', 'Help']
         self.offset = 0
         self.index = 0
         self.storage = Storage()
@@ -416,7 +416,7 @@ class Menu:
             elif key == ord('z'):
                 self.stack.append([datatype, title, datalist, offset, index])
                 self.datatype = 'songs'
-                self.title = '网易云音乐 > 打碟'
+                self.title = 'Netease cloud music > DJing'
                 self.datalist = self.djstack
                 self.offset = 0
                 self.index = 0
@@ -434,7 +434,7 @@ class Menu:
             elif key == ord('c'):
                 self.stack.append([datatype, title, datalist, offset, index])
                 self.datatype = 'songs'
-                self.title = '网易云音乐 > 收藏'
+                self.title = 'Netease cloud music > Collection'
                 self.datalist = self.collection
                 self.offset = 0
                 self.index = 0
@@ -576,22 +576,22 @@ class Menu:
                 # 搜索结果可以用top_playlists处理
                 self.datatype = 'top_playlists'
                 self.datalist = ui.build_search('search_playlist')
-                self.title = '精选歌单搜索列表'
+                self.title = 'Featured song single search'
 
             elif idx == 1:
                 self.datatype = 'songs'
                 self.datalist = ui.build_search('songs')
-                self.title = '歌曲搜索列表'
+                self.title = 'Song Search'
 
             elif idx == 2:
                 self.datatype = 'artists'
                 self.datalist = ui.build_search('artists')
-                self.title = '艺术家搜索列表'
+                self.title = 'Artist Search'
 
             elif idx == 3:
                 self.datatype = 'albums'
                 self.datalist = ui.build_search('albums')
-                self.title = '专辑搜索列表'
+                self.title = 'Album Search'
 
 
     def show_playing_song(self):
@@ -674,38 +674,38 @@ class Menu:
         netease = self.netease
         if idx == 0:
             self.datalist = netease.return_toplists()
-            self.title += ' > 排行榜'
+            self.title += ' > Leaderboard'
             self.datatype = 'toplists'
 
         # 艺术家
         elif idx == 1:
             artists = netease.top_artists()
             self.datalist = netease.dig_info(artists, 'artists')
-            self.title += ' > 艺术家'
+            self.title += ' > Artists'
             self.datatype = 'artists'
 
         # 新碟上架
         elif idx == 2:
             albums = netease.new_albums()
             self.datalist = netease.dig_info(albums, 'albums')
-            self.title += ' > 新碟上架'
+            self.title += ' > Added new album'
             self.datatype = 'albums'
 
         # 精选歌单
         elif idx == 3:
             self.datalist = [
                 {
-                    'title': '全站置顶',
+                    'title': 'Full Site Top',
                     'datatype': 'top_playlists',
                     'callback': netease.top_playlists
                 },
                 {
-                    'title': '分类精选',
+                    'title': 'Featured Categories',
                     'datatype': 'playlist_classes',
                     'callback': netease.playlist_classes
                 }
             ]
-            self.title += ' > 精选歌单'
+            self.title += ' > Featured Songs Single'
             self.datatype = 'playlists'
 
         # 我的歌单
@@ -715,18 +715,18 @@ class Menu:
                 return
             self.datatype = 'top_playlists'
             self.datalist = netease.dig_info(myplaylist, self.datatype)
-            self.title += ' > ' + self.username + ' 的歌单'
+            self.title += ' > ' + self.username + ' Playlist'
 
         # DJ节目
         elif idx == 5:
             self.datatype = 'djchannels'
-            self.title += ' > DJ节目'
+            self.title += ' > DJ program'
             self.datalist = netease.djchannels()
 
         # 每日推荐
         elif idx == 6:
             self.datatype = 'songs'
-            self.title += ' > 每日推荐'
+            self.title += ' > Daily Recommended'
             myplaylist = self.request_api(self.netease.recommend_playlist)
             if myplaylist == -1:
                 return
@@ -735,19 +735,19 @@ class Menu:
         # 私人FM
         elif idx == 7:
             self.datatype = 'fmsongs'
-            self.title += ' > 私人FM'
+            self.title += ' > Private FM'
             self.datalist = self.get_new_fm()
 
         # 搜索
         elif idx == 8:
             self.datatype = 'search'
-            self.title += ' > 搜索'
-            self.datalist = ['歌曲', '艺术家', '专辑', '网易精选集']
+            self.title += ' > Search'
+            self.datalist = ['Song', 'Artists', 'Albums', 'NetEase Collection']
 
         # 帮助
         elif idx == 9:
             self.datatype = 'help'
-            self.title += ' > 帮助'
+            self.title += ' > Help'
             self.datalist = shortcut
 
         self.offset = 0

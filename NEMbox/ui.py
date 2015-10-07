@@ -148,15 +148,15 @@ class Ui:
             total_second = "0" + str(total_second)
         process += "(" + now_minute + ":" + now_second + "/" + total_minute + ":" + total_second + ")"
         if playing_mode == 0:
-            process = "顺序播放 " + process
+            process = "Order of play " + process
         elif playing_mode == 1:
-            process = "顺序循环 " + process
+            process = "Loop " + process
         elif playing_mode == 2:
-            process = "单曲循环 " + process
+            process = "Single loop " + process
         elif playing_mode == 3:
-            process = "随机播放 " + process
+            process = "Shuffle Playback " + process
         elif playing_mode == 4:
-            process = "随机循环 " + process
+            process = "Shuffle loop " + process
         else:
             pass
         self.screen.addstr(3, self.startcol - 2, process, curses.color_pair(1))
@@ -165,7 +165,7 @@ class Ui:
             self.storage.database["player_info"]["player_list"][self.storage.database["player_info"]["idx"]]
         ]
         if 'lyric' not in song.keys() or len(song["lyric"]) <= 0:
-            self.now_lyric = "[00:00.00]暂无歌词 ~>_<~ \n"
+            self.now_lyric = "[00:00.00]No lyrics ~>_<~ \n"
         else:
             key = now_minute + ":" + now_second
             for line in song["lyric"]:
@@ -176,7 +176,7 @@ class Ui:
         self.screen.refresh()
 
     def build_loading(self):
-        self.screen.addstr(7, self.startcol, '享受高品质音乐，loading...', curses.color_pair(1))
+        self.screen.addstr(7, self.startcol, 'Enjoy high quality music，loading...', curses.color_pair(1))
         self.screen.refresh()
 
     # start is the timestamp of this function being called
@@ -188,7 +188,7 @@ class Ui:
         self.screen.addstr(5, self.startcol, title, curses.color_pair(1))
 
         if len(datalist) == 0:
-            self.screen.addstr(8, self.startcol, '这里什么都没有 -，-')
+            self.screen.addstr(8, self.startcol, 'Nothing Here -，-')
 
         else:
             if datatype == 'main':
@@ -302,7 +302,7 @@ class Ui:
                 self.screen.move(4, 1)
                 self.screen.clrtobot()
                 self.screen.timeout(-1)
-                self.screen.addstr(8, self.startcol, '选择搜索类型:', curses.color_pair(1))
+                self.screen.addstr(8, self.startcol, 'Select the search type:', curses.color_pair(1))
                 for i in range(offset, min(len(datalist), offset + step)):
                     if i == index:
                         self.screen.addstr(i - offset + 10, self.indented_startcol,
@@ -324,9 +324,9 @@ class Ui:
                                            str(i) + '. \'' + (datalist[i][0].upper() + '\'').ljust(11) + datalist[i][
                                                1] + '   ' +
                                            datalist[i][2])
-                self.screen.addstr(20, 6, 'NetEase-MusicBox 基于Python，所有版权音乐来源于网易，本地不做任何保存')
-                self.screen.addstr(21, 10, '按 [G] 到 Github 了解更多信息，帮助改进，或者Star表示支持~~')
-                self.screen.addstr(22, self.startcol, 'Build with love to music by omi')
+                self.screen.addstr(20, 6, 'NetEase-MusicBox based on Python, all copyright music from Netease, local without saving')
+                self.screen.addstr(21, 10, 'Press [G] to goto Github for more information to help improve, or expressed support for the Star ~')
+                self.screen.addstr(22, self.startcol, 'Built for the love of music by omi')
 
         self.screen.refresh()
 
@@ -334,7 +334,7 @@ class Ui:
         self.screen.timeout(-1)
         netease = self.netease
         if stype == 'songs':
-            song_name = self.get_param('搜索歌曲：')
+            song_name = self.get_param('Search Songs:')
             if song_name == '/return':
                 return []
             else:
@@ -356,7 +356,7 @@ class Ui:
                     return []
 
         elif stype == 'artists':
-            artist_name = self.get_param('搜索艺术家：')
+            artist_name = self.get_param('Search Artist:')
             if artist_name == '/return':
                 return []
             else:
@@ -369,7 +369,7 @@ class Ui:
                     return []
 
         elif stype == 'albums':
-            albums_name = self.get_param('搜索专辑：')
+            albums_name = self.get_param('Search Album:')
             if albums_name == '/return':
                 return []
             else:
@@ -382,7 +382,7 @@ class Ui:
                     return []
 
         elif stype == 'search_playlist':
-            search_playlist = self.get_param('搜索网易精选集：')
+            search_playlist = self.get_param('Search Netease Collection:')
             if search_playlist == '/return':
                 return []
             else:
@@ -415,9 +415,9 @@ class Ui:
         curses.noecho()
         self.screen.move(4, 1)
         self.screen.clrtobot()
-        self.screen.addstr(5, self.startcol, '请输入登录信息(支持手机登陆)', curses.color_pair(1))
-        self.screen.addstr(8, self.startcol, "账号:", curses.color_pair(1))
-        self.screen.addstr(9, self.startcol, "密码:", curses.color_pair(1))
+        self.screen.addstr(5, self.startcol, 'Please enter your login information (to support mobile landing)', curses.color_pair(1))
+        self.screen.addstr(8, self.startcol, "Username:", curses.color_pair(1))
+        self.screen.addstr(9, self.startcol, "Password:", curses.color_pair(1))
         self.screen.move(8, 24)
         self.screen.refresh()
 
@@ -425,10 +425,10 @@ class Ui:
         self.screen.move(4, 1)
         self.screen.timeout(-1)  # disable the screen timeout
         self.screen.clrtobot()
-        self.screen.addstr(8, self.startcol, '艾玛，登录信息好像不对呢 (O_O)#', curses.color_pair(1))
-        self.screen.addstr(10, self.startcol, '[1] 再试一次')
-        self.screen.addstr(11, self.startcol, '[2] 稍后再试')
-        self.screen.addstr(14, self.startcol, '请键入对应数字:', curses.color_pair(2))
+        self.screen.addstr(8, self.startcol, 'Emma, it seems wrong login information (O_O)#', curses.color_pair(1))
+        self.screen.addstr(10, self.startcol, '[1] Try again')
+        self.screen.addstr(11, self.startcol, '[2] Try again later')
+        self.screen.addstr(14, self.startcol, 'Please type the corresponding response:', curses.color_pair(2))
         self.screen.refresh()
         x = self.screen.getch()
         self.screen.timeout(100)  # restore the screen timeout
@@ -437,14 +437,14 @@ class Ui:
     def get_account(self):
         self.screen.timeout(-1)  # disable the screen timeout
         curses.echo()
-        account = self.screen.getstr(8, self.startcol + 6, 60)
+        account = self.screen.getstr(8, self.startcol + 10, 60)
         self.screen.timeout(100)  # restore the screen timeout
         return account
 
     def get_password(self):
         self.screen.timeout(-1)  # disable the screen timeout
         curses.noecho()
-        password = self.screen.getstr(9, self.startcol + 6, 60)
+        password = self.screen.getstr(9, self.startcol + 10, 60)
         self.screen.timeout(100)  # restore the screen timeout
         return password
 

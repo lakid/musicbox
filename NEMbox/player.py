@@ -103,7 +103,7 @@ class Player:
                 return
             netease = NetEase()
             lyric = netease.song_lyric(self.playing_id)
-            if (not lyric == []) or lyric == '未找到歌词':
+            if (not lyric == []) or lyric == 'Lyrics not found':
                 lyric = lyric.split('\n')
             self.songs[str(self.playing_id)]["lyric"] = lyric
             return
